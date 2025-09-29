@@ -1,0 +1,3529 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaspaPix - Cadastro</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/globalStyles.css">
+    
+    <!-- Scripts -->
+    <script src="js/notiflix-aio-3.2.8.min.js"></script>
+    <link href="css/notiflix.min.css" rel="stylesheet">
+
+    <style>
+        /* Page Styles */
+        .cadastro-section {
+            margin-top: 100px;
+            padding: 4rem 0;
+            background: #000;
+            min-height: calc(100vh - 100px);
+            position: relative;
+        }
+
+        .cadastro-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Left Section */
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .brand-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #050BFD, #040AE0);
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            font-weight: 900;
+            box-shadow: 0 20px 40px rgba(5, 11, 253, 0.3);
+            position: relative;
+        }
+
+        .brand-logo::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(135deg, #050BFD, #040AE0);
+            border-radius: 28px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.05); opacity: 0.1; }
+        }
+
+        .brand-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #9ca3af);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .brand-subtitle {
+            font-size: 1.3rem;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        .highlight-text {
+            color: #050BFD;
+            font-weight: 700;
+        }
+
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #e5e7eb;
+            font-size: 1.1rem;
+        }
+
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(5, 11, 253, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #050BFD;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        /* Right Section */
+        .right-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cadastro-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cadastro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(5, 11, 253, 0.1), transparent);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .cadastro-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cadastro-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #050BFD, #040AE0);
+            border-radius: 16px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 24px rgba(5, 11, 253, 0.3);
+        }
+
+        .cadastro-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .cadastro-subtitle {
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+
+        /* Form Styles */
+        .cadastro-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #050BFD;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(5, 11, 253, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #6b7280;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .form-group:focus-within .input-icon {
+            color: #050BFD;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .custom-checkbox {
+            width: 18px;
+            height: 18px;
+            background: #050BFD;
+            border: 1px solid #050BFD;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-checkbox input {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            margin: 0;
+            z-index: 2;
+        }
+
+        .custom-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .custom-checkbox input:not(:checked) + .checkmark {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-checkbox input:not(:checked) ~ .checkmark::after {
+            display: none;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .checkbox-label {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .checkbox-label a {
+            color: #050BFD;
+            text-decoration: none;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            background: linear-gradient(135deg, #050BFD, #040AE0);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(5, 11, 253, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(5, 11, 253, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Footer Links */
+        .form-footer {
+            text-align: center;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-text {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: #050BFD;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #040AE0;
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(5, 11, 253, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 40%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(4) {
+            bottom: 20%;
+            right: 25%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .cadastro-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                max-width: 600px;
+            }
+
+            .brand-content {
+                display: none !important;
+            }
+            
+            .left-section {
+                order: 2;
+                text-align: center;
+            }
+            
+            .right-section {
+                order: 1;
+            }
+            
+            .brand-title {
+                font-size: 2.5rem;
+            }
+            
+            .benefits-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .benefit-item {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cadastro-section {
+                padding: 2rem 0;
+            }
+
+            .brand-content {
+                display: none !important;
+            }
+            
+            .cadastro-container {
+                padding: 0 1rem;
+            }
+            
+            .cadastro-card {
+                padding: 2rem;
+                border-radius: 20px;
+            }
+            
+            .brand-logo {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .brand-title {
+                font-size: 2rem;
+            }
+            
+            .brand-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .benefits-list {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cadastro-card {
+                padding: 1.5rem;
+            }
+            
+            .form-input {
+                padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+            }
+
+            .brand-content {
+                display: none !important;
+            }
+            
+            .input-icon {
+                left: 0.8rem;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading .submit-btn {
+            background: #6b7280;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+<script src="js/audio_manager.js"></script>
+<script src="js/audio_init.js"></script>
+
+    <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+
+
+<style>
+/* === Cadastro: cores dos botões no header === */
+body.cadastro-page .btn-register{
+  background:#28A745 !important;
+  color:#FFFFFF !important;
+  box-shadow:0 4px 20px rgba(40,167,69,.35) !important;
+  border-radius:12px !important;
+}
+body.cadastro-page .btn-register:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+
+/* Entrar com fundo azul e texto branco */
+body.cadastro-page .btn-login{
+  background:#050BFD !important;
+  color:#FFFFFF !important;
+  text-decoration:none !important;
+  padding:0.75rem 1.5rem !important;
+  border-radius:12px !important;
+  font-weight:600 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:0.5rem !important;
+  box-shadow:0 4px 20px rgba(5, 11, 253, 0.30) !important;
+}
+body.cadastro-page .btn-login:hover{
+  filter:brightness(1.05);
+}
+/* Garante que ícone herde a cor branca */
+body.cadastro-page .btn-login i{ color:inherit !important; }
+</style>
+
+
+<style>
+/* ====== PADRÃO DE TODOS OS INPUTS (EVITA TEXTO SOBRE O ÍCONE) ====== */
+.rp-input{
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+  outline: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  color: #E5E7EB;
+  padding-left: 40px; /* dá espaço para ícones à esquerda existentes no seu layout */
+}
+.rp-input::placeholder{
+  color: #9AA3AF;
+  opacity: 1;
+}
+.rp-input:focus{
+  border-color: rgba(59,130,246,0.45);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* ====== TELEFONE COM BANDEIRA + +55 + | ====== */
+.phone-input-br{
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.phone-input-br input{
+  width: 100%;
+  height: 44px;
+  padding-left: 100px !important; /* espaço para imagem +55 + separador */
+  border-radius: 12px;
+  outline: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  color: #E5E7EB;
+}
+.phone-input-br input::placeholder{
+  color: #9AA3AF;
+  opacity: 1;
+}
+.phone-input-br input:focus{
+  border-color: rgba(59,130,246,0.45);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.phone-input-br .flag,
+.phone-input-br .prefix,
+.phone-input-br .sep{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  user-select: none;
+}
+.phone-input-br .flag{
+  left: 12px;
+  width: 24px;
+  height: 16px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.phone-input-br .flag img{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.phone-input-br .prefix{
+  left: 48px;
+  font-size: 14px;
+  color: #9AA3AF;
+}
+.phone-input-br .sep{
+  left: 78px;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+@media (max-width: 420px){
+  .phone-input-br input{ height: 42px; padding-left: 96px !important; }
+  .phone-input-br .prefix{ left: 46px; }
+  .phone-input-br .sep{ left: 76px; }
+}
+</style>
+  <script src="js/fbc-capture.js"></script>
+<script id="disable-purchase-front" src="js/disable-purchase-front.js" defer=""></script>
+</head>
+<body class="cadastro-page">
+    
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="css/bootstrap-icons.css">
+
+<header class="header">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+ document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1724982444792268');
+fbq('track', 'PageView');
+<script src="/api/capi_pv.js.php?v=1759115496" defer></script>
+
+<script>
+// Removido: disparo de Purchase pelo Pixel; usando apenas Conversion API (server-side)
+</script>
+
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1724982444792268&ev=PageView&noscript=1"
+/></noscript>
+<!-- /Meta Pixel -->
+
+    <div class="header-container">
+        <!-- Logo -->
+        <a href="/" class="logo">
+                            <img src="images/68c0c152c7685.webp" alt="RaspaPix" class="logo-image">
+                    </a>
+        
+        <!-- Mobile Menu Button -->
+        <div class="mobile-menu-btn">
+            <i id="menuBtn" class="bi bi-list"></i>
+        </div>
+        
+        <!-- Navigation -->
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Início</a></li>
+                <li><a href="/cartelas" class="nav-link">Raspadinhas</a></li>
+            <!--    <li><a href="/bingo" class="nav-link">Bingo</a></li> -->
+            </ul>
+        </nav>
+        
+        <!-- Header Actions -->
+        <div class="header-actions">
+                            <!-- Not Logged In -->
+                <a href="/login" class="btn-login">
+                    <i class="bi bi-person"></i>
+                    <span class="login-text">Entrar</span>
+                </a>
+                <a href="/cadastro" class="btn-register">
+                    <i class="bi bi-dice-3-fill"></i>
+                    Registrar
+                </a>
+                    </div>
+    </div>
+</header>
+
+
+
+
+
+<!-- Mobile Sidebar -->
+<aside id="sidebar" class="mobile-sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+                            <img src="images/68c0c152c7685.webp" alt="RaspaPix" class="sidebar-logo-image">
+                    </div>
+        <button id="closeSidebar" class="close-btn">
+            <i class="bi bi-x"></i>
+        </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+        <a href="/" class="sidebar-item">
+            <i class="bi bi-house"></i>
+            <span>Início</span>
+        </a>
+
+        <a href="/cartelas" class="sidebar-item">
+            <i class="bi bi-grid-3x3-gap"></i>
+            <span>Raspadinhas</span>
+        </a>
+
+        <!-- <a href="/bingo" class="sidebar-item">
+            <i class="bi bi-grid"></i>
+            <span>Bingo</span>
+        </a> -->
+
+        
+        <div class="sidebar-divider"></div>
+        
+        <a href="https://t.me/daanrox" target="_blank" class="sidebar-item">
+            <i class="bi bi-telegram"></i>
+            <span>Suporte</span>
+        </a>
+    </nav>
+</aside>
+
+<!-- Mobile Backdrop -->
+<div id="backdrop" class="mobile-backdrop"></div>
+
+<!-- Bottom Navigation (NEW) -->
+<nav class="bottom-navigation">
+    <div class="bottom-nav-container">
+                    <!-- Not Logged In -->
+            <a href="/" class="bottom-nav-item active">
+                <i class="bi bi-house-fill"></i>
+                <span>Início</span>
+            </a>
+            
+            <a href="/cartelas" class="bottom-nav-item">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+                <span>Jogar</span>
+            </a>
+            
+            <a href="/login" class="bottom-nav-item">
+                <i class="bi bi-person-fill"></i>
+                <span>Entrar</span>
+            </a>
+            
+            <a href="/cadastro" class="bottom-nav-item register-btn">
+                <i class="bi bi-dice-3-fill"></i>
+                <span>Registrar</span>
+            </a>
+            </div>
+</nav>
+
+<!-- Install App Modal -->
+<div id="installModal" class="install-modal">
+    <div class="install-modal-content">
+        <div class="install-modal-header">
+            <div class="install-modal-icon">
+                <i class="bi bi-phone"></i>
+            </div>
+            <h2>Instale Nosso App</h2>
+            <button class="install-modal-close" onclick="closeInstallModal()">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        
+        <div class="install-benefits">
+            <div class="benefits-title">
+                <i class="bi bi-gift"></i>
+                <span>Vantagens do App</span>
+            </div>
+            
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Acesso rápido direto da tela inicial</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Notificações de promoções exclusivas</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Experiência mais fluida e rápida</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Funciona mesmo offline</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Design otimizado para mobile</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="install-instructions">
+            <div class="platform-tabs">
+                <button class="platform-tab active" data-platform="ios">
+                    <i class="bi bi-apple"></i>
+                    iOS (iPhone/iPad)
+                </button>
+                <button class="platform-tab" data-platform="android">
+                    <i class="bi bi-android2"></i>
+                    Android
+                </button>
+            </div>
+            
+            <div class="platform-content active" data-platform="ios">
+                <div class="instruction-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Abra no Safari</h4>
+                        <p>Este site deve ser aberto no navegador Safari</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Toque no botão Compartilhar</h4>
+                        <p><i class="bi bi-share"></i> Na barra inferior do Safari</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Selecione "Adicionar à Tela de Início"</h4>
+                        <p><i class="bi bi-plus-square"></i> Role para baixo se necessário</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Confirme tocando em "Adicionar"</h4>
+                        <p>O app aparecerá na sua tela inicial</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="platform-content" data-platform="android">
+                <div class="instruction-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Abra no Chrome</h4>
+                        <p>Recomendamos usar o Google Chrome</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Toque no menu (3 pontos)</h4>
+                        <p><i class="bi bi-three-dots-vertical"></i> No canto superior direito</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Selecione "Instalar app" ou "Adicionar à tela inicial"</h4>
+                        <p><i class="bi bi-house-add"></i> Pode aparecer automaticamente uma notificação</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Confirme a instalação</h4>
+                        <p>O app será adicionado ao seu dispositivo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="desktop-note">
+                <div class="platform-tab">
+                    <i class="bi bi-display"></i>
+                    Desktop
+                </div>
+                <p>No desktop, procure pelo ícone de instalação na barra de endereço do seu navegador ou um banner de instalação aparecerá automaticamente.</p>
+            </div>
+        </div>
+        
+        <div class="install-modal-footer">
+            <button class="install-understand-btn" onclick="closeInstallModal()">
+                Entendi, obrigado!
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Header Styles */
+.header {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+
+    min-height: 76px;
+}
+
+.header-container {
+    I0px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo Styles - Apenas logo, sem texto */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-image {
+    height: auto; max-height: 56px;
+    width: auto;
+    I0px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.02);
+}
+
+.logo-icon {
+    width: 45px;
+    height: auto; max-height: 56px;
+    background: linear-gradient(135deg, #050BFD 0%, #040AE0 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: 
+        0 8px 20px rgba(255,255,255,0.3),
+        0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.logo-icon:hover {
+    box-shadow: 
+        0 12px 30px rgba(255,255,255,0.4),
+        0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Sidebar Logo Styles - Apenas logo, sem texto */
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-logo-image {
+    height: 40px;
+    width: auto;
+    I0px;
+    object-fit: contain;
+}
+
+.sidebar-logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #050BFD 0%, #040AE0 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+}
+
+/* App Download Banner */
+.app-download-banner i {
+    font-size: 1rem;
+}
+
+.download-btn:hover {
+    background: rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+.close-banner:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Header position adjustments */
+.header {
+    top: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+    transition: top 0.3s ease;
+}
+
+.header.with-banner {
+    top: 45px;
+}
+
+/* Install Modal Styles */
+.install-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 1rem;
+}
+
+.install-modal.active {
+    display: flex;
+}
+
+.install-modal-content {
+    background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 1px solid rgba(5, 11, 253, 0.3);
+    border-radius: 20px;
+    I0px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.install-modal-header {
+    padding: 2rem 2rem 1rem;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.install-modal-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #050BFD, #040AE0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.8rem;
+    color: white;
+    box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+}
+
+.install-modal-header h2 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.install-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.install-modal-close:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.install-benefits {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.benefits-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #FFFFFF;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.benefits-title i {
+    font-size: 1.2rem;
+}
+
+.benefits-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #e5e7eb;
+    font-size: 0.9rem;
+}
+
+.benefit-item i {
+    color: #FFFFFF;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.install-instructions {
+    padding: 1.5rem 2rem;
+}
+
+.platform-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.platform-tab {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #9ca3af;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.platform-tab.active {
+    background: linear-gradient(135deg, #050BFD, #040AE0);
+    border-color: rgba(5, 11, 253, 0.5);
+    color: white;
+}
+
+.platform-tab:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.platform-content {
+    display: none;
+}
+
+.platform-content.active {
+    display: block;
+}
+
+.instruction-step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #050BFD, #040AE0);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+}
+
+.step-content p {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.step-content p i {
+    color: #FFFFFF;
+}
+
+.desktop-note {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+}
+
+.desktop-note .platform-tab {
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 0;
+    margin-bottom: 0.5rem;
+    justify-content: flex-start;
+    cursor: default;
+}
+
+.desktop-note p {
+    color: #e5e7eb;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.install-modal-footer {
+    padding: 1.5rem 2rem 2rem;
+    text-align: center;
+}
+
+.install-understand-btn {
+    background: linear-gradient(135deg, #050BFD, #040AE0);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+}
+
+.install-understand-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+}
+
+/* Bottom Navigation Styles - NEW */
+.bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 0;
+    z-index: 999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.bottom-nav-container {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.25rem;
+    text-decoration: none;
+    color: #9ca3af;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    min-width: 60px;
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.bottom-nav-item i {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.bottom-nav-item span {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.bottom-nav-item:hover {
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+.bottom-nav-item.active {
+    color: #FFFFFF;
+}
+
+.bottom-nav-item.active i {
+    transform: scale(1.1);
+}
+
+/* Special styling for deposit button */
+.bottom-nav-item.deposit-btn {
+    background: linear-gradient(135deg, #050BFD, #040AE0);
+    color: white;
+    border-radius: 16px;
+    padding: 0.75rem 0.5rem;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+    transform: translateY(-4px);
+}
+
+.bottom-nav-item.deposit-btn:hover {
+    background: linear-gradient(135deg, #040AE0, #0308C0);
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+}
+
+.bottom-nav-item.deposit-btn i {
+    font-size: 1.4rem;
+}
+
+.bottom-nav-item.deposit-btn span {
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* Promo Badge Styles */
+.promo-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #050BFD;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(5, 11, 253, 0.4);
+    animation: promoPulse 2s infinite;
+    z-index: 10;
+}
+
+.promo-badge img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+@keyframes promoPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(5, 11, 253, 0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(5, 11, 253, 0.6);
+    }
+}
+
+/* Special styling for register button */
+.bottom-nav-item.register-btn {
+    background: linear-gradient(135deg, #050BFD, #040AE0);
+    color: white;
+    border-radius: 16px;
+    padding: 0.75rem 0.5rem;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+}
+
+.bottom-nav-item.register-btn:hover {
+    background: linear-gradient(135deg, #040AE0, #0308C0);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+}
+
+.bottom-nav-item.register-btn i {
+    font-size: 1.4rem;
+}
+
+.bottom-nav-item.register-btn span {
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* Badge for notifications (optional) */
+.bottom-nav-item::after {
+    content: '';
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 8px;
+    height: 8px;
+    background-color: #0a0a0a;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bottom-nav-item.has-notification::after {
+    opacity: 1;
+}
+
+/* Mobile banner adjustments */
+@media (max-width: 768px) {
+    .header.with-banner {
+        top: 40px;
+    }
+    
+    .install-modal-content {
+        margin: 1rem;
+        max-height: 85vh;
+    }
+    
+    .install-modal-header {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+    
+    .install-benefits,
+    .install-instructions,
+    .install-modal-footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    .platform-tabs {
+        flex-direction: column;
+    }
+
+    /* Adjust body padding for bottom nav */
+    body {
+        padding-bottom: 85px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-download-banner span {
+        max-width: calc(100% - 120px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .header.with-banner {
+        top: 35px;
+    }
+    
+    .install-modal {
+        padding: 0.5rem;
+    }
+    
+    .install-modal-header {
+        padding: 1rem;
+    }
+    
+    .install-modal-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .install-modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .install-benefits,
+    .install-instructions,
+    .install-modal-footer {
+        padding: 1rem;
+    }
+
+    /* Bottom nav adjustments for very small screens */
+    .bottom-nav-container {
+        padding: 0 0.5rem;
+    }
+    
+    .bottom-nav-item {
+        min-width: 50px;
+        padding: 0.4rem 0.2rem;
+    }
+    
+    .bottom-nav-item i {
+        font-size: 1.1rem;
+    }
+    
+    .bottom-nav-item span {
+        font-size: 0.65rem;
+    }
+    
+    .bottom-nav-item.deposit-btn i,
+    .bottom-nav-item.register-btn i {
+        font-size: 1.3rem;
+    }
+    
+    .bottom-nav-item.deposit-btn span,
+    .bottom-nav-item.register-btn span {
+        font-size: 0.7rem;
+    }
+
+    /* Adjust body padding for bottom nav */
+    body {
+        padding-bottom: 80px !important;
+    }
+}
+
+.mobile-menu-btn {
+    display: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-link {
+    color: #9ca3af;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #0a0a0a;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-login {
+    color: #9ca3af;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.btn-login:hover {
+    color: #ffffff;
+}
+
+.btn-register {
+    background-color: #0a0a0a;
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-register:hover {
+    background-color: #0a0a0a;
+    transform: translateY(-1px);
+}
+
+.balance-display {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.btn-deposit {
+    background-color: #22C55E;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-deposit:hover {
+    background-color: #1EA34A;
+    transform: translateY(-1px);
+}
+
+.user-dropdown {
+    position: relative;
+}
+
+.user-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+}
+
+.user-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 200px;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.user-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #e5e7eb;
+    text-decoration: none;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background: rgba(5, 11, 253, 0.1);
+    color: #FFFFFF;
+}
+
+.dropdown-item.logout {
+    color: #ef4444;
+}
+
+.dropdown-item.logout:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.5rem 0;
+}
+
+/* Mobile Sidebar */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: rgba(15, 15, 15, 0.98);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1100;
+    overflow-y: auto;
+}
+
+.mobile-sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.sidebar-nav {
+    padding: 1rem 0;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    color: #e5e7eb;
+    text-decoration: none;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background: rgba(5, 11, 253, 0.1);
+    color: #FFFFFF;
+}
+
+.sidebar-item.logout {
+    color: #ef4444;
+}
+
+.sidebar-item.logout:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 1rem 0;
+}
+
+.mobile-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1050;
+}
+
+.mobile-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hide bottom navigation on desktop */
+@media (min-width: 769px) {
+    .bottom-navigation {
+        display: none;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+    
+    .logo-image {
+        height: 35px;
+    }
+    
+    .logo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        color: white;
+        font-size: 1.3rem;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .mobile-menu-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+    
+    .balance-display {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        min-width: auto;
+        border-radius: 8px;
+    }
+    
+    .btn-deposit {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        border-radius: 8px;
+        min-width: auto;
+    }
+    
+    .deposit-text {
+        display: none;
+    }
+    
+    .user-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        border-radius: 8px;
+        min-width: auto;
+    }
+    
+    .user-name {
+        display: none;
+    }
+    
+    .dropdown-arrow {
+        font-size: 0.8rem;
+    }
+    
+    .btn-login {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+    
+    .login-text {
+        display: none;
+    }
+    
+    .btn-register {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+    
+    .dropdown-menu {
+        right: 0;
+        min-width: 180px;
+        margin-top: 0.25rem;
+    }
+    
+    .dropdown-item {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0 0.75rem;
+        gap: 0.5rem;
+    }
+    
+    .logo-image {
+        height: 32px;
+    }
+    
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .mobile-menu-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+        margin-right: 0.75rem;
+    }
+    
+    .header-actions {
+        gap: 0.4rem;
+    }
+    
+    .balance-display {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        min-width: auto;
+    }
+    
+    .btn-deposit,
+    .user-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        min-width: 36px;
+    }
+    
+    .btn-register {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .dropdown-arrow {
+        font-size: 0.7rem;
+    }
+    
+    .sidebar-logo-image {
+        height: 35px;
+    }
+    
+    .sidebar-logo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+    }
+}
+
+</style>
+<link rel="stylesheet" href="css/modal-fee.css">
+<script src="js/modal-fee.js" defer=""></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if banner was previously closed
+    const bannerClosed = localStorage.getItem('appBannerClosed');
+    const appBanner = document.getElementById('appBanner');
+    const header = document.querySelector('.header');
+    
+    if (!bannerClosed && appBanner) {
+        appBanner.style.display = 'flex';
+        header.classList.add('with-banner');
+    } else {
+        header.style.top = '0';
+    }
+    
+    // Banner close function
+    window.closeBanner = function() {
+        appBanner.style.display = 'none';
+        header.classList.remove('with-banner');
+        header.style.top = '0';
+        localStorage.setItem('appBannerClosed', 'true');
+    };
+    
+    // Install modal functions
+    window.openInstallModal = function() {
+        document.getElementById('installModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+    
+    window.closeInstallModal = function() {
+        document.getElementById('installModal').classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    
+    // Platform tabs functionality
+    const platformTabs = document.querySelectorAll('.platform-tab[data-platform]');
+    const platformContents = document.querySelectorAll('.platform-content[data-platform]');
+    
+    platformTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const platform = tab.dataset.platform;
+            
+            // Remove active class from all tabs and contents
+            platformTabs.forEach(t => t.classList.remove('active'));
+            platformContents.forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            tab.classList.add('active');
+            document.querySelector(`.platform-content[data-platform="${platform}"]`).classList.add('active');
+        });
+    });
+    
+    // Close modal when clicking outside
+    document.getElementById('installModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeInstallModal();
+        }
+    });
+
+    // Mobile menu functionality
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('backdrop');
+    const closeSidebar = document.getElementById('closeSidebar');
+
+    function openSidebar() {
+        sidebar.classList.add('active');
+        backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebarFunc() {
+        sidebar.classList.remove('active');
+        backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    menuBtn?.addEventListener('click', openSidebar);
+    closeSidebar?.addEventListener('click', closeSidebarFunc);
+    backdrop?.addEventListener('click', closeSidebarFunc);
+
+    // User dropdown functionality
+    const userDropdownBtn = document.getElementById('userDropdownBtn');
+    const userDropdown = userDropdownBtn?.closest('.user-dropdown');
+
+    userDropdownBtn?.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(e) {
+        if (userDropdown && !userDropdown.contains(e.target)) {
+            userDropdown.classList.remove('active');
+        }
+    });
+
+    // Bottom Navigation Active State
+    function setActiveBottomNavItem() {
+        const currentPath = window.location.pathname;
+        const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+        
+        bottomNavItems.forEach(item => {
+            item.classList.remove('active');
+            
+            const href = item.getAttribute('href');
+            if (href && (href === currentPath || (currentPath === '/' && href === '/'))) {
+                item.classList.add('active');
+            }
+        });
+    }
+    
+    // Set active state on page load
+    setActiveBottomNavItem();
+    
+    // Update active state when clicking bottom nav items
+    document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove active from all items
+            document.querySelectorAll('.bottom-nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            // Add active to clicked item (if it's a link)
+            if (this.getAttribute('href')) {
+                this.classList.add('active');
+            }
+        });
+    });
+});
+</script>
+<script>
+    document.;
+</script>
+<script>
+// Auto-abre a aba de cadastro para visitantes deslogados ou na primeira visita
+(function(){
+  try{
+    var path = window.location.pathname || '/';
+    var isHome = (path === '/' || path === '' || path === '/index.php');
+    var onCadastro = path.indexOf('/cadastro') === 0;
+    var firstVisit = !localStorage.getItem('first_visit_done');
+    if (!onCadastro && (isHome || firstVisit)) {
+      localStorage.setItem('first_visit_done','1');
+      window.location.replace('/cadastro');
+    }
+  }catch(e){ /* silencioso */ }
+})();
+</script>
+
+<!-- Modais will be included separately -->
+<style>
+/* === Remove indicador verde do botão Depositar (mobile) === */
+.bottom-navigation .deposit-btn .promo-badge{ display:none !important; }
+.bottom-navigation .bottom-nav-item.has-notification::after{ opacity:0 !important; }
+
+<script src="/assets/js/purchase-tracking.js?v=1759115496"></script>
+
+<!-- CAPI PageView inline (não interfere no Pixel; só envia server-side e loga) -->
+<script>
+(function(){
+  if (window.__capi_pv_sent) return; window.__capi_pv_sent = true;
+  try {
+    function getCookie(n){ var m=document.cookie.match(new RegExp('(?:^|; )'+n.replace(/([.$?*|{}()\[\]\\\/\+^])/g,'\\$1')+'=([^;]*)')); return m?decodeURIComponent(m[1]):null; }
+    var payload = {
+      event_id: 'pv_' + Date.now() + '_' + Math.random().toString(36).slice(2,8),
+      fbp: getCookie('_fbp') || null,
+      fbc: getCookie('_fbc') || null,
+      event_source_url: location.href
+    };
+    try { fetch('/api/capi_logger.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'CAPI_PV_REQUEST_INLINE', page: location.href, extra: payload})}); } catch(e){}
+    fetch('/api/fb_capi_pageview.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){ try{return r.json()}catch(e){return null} }).then(function(res){
+      try { fetch('/api/capi_logger.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'CAPI_PV_RESPONSE_INLINE', page: location.href, extra: res})}); } catch(e){}
+    }).catch(function(){
+      try { fetch('/api/capi_logger.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'CAPI_PV_RESPONSE_INLINE_ERROR', page: location.href})}); } catch(e){}
+    });
+  } catch(e) {}
+})();
+</script>
+<script>(function(){try{var i=new Image();i.src='/api/capi_log_beacon.php?e=CAPI_PV_HEADER_INCLUDED&u='+encodeURIComponent(location.href)+'&t='+Date.now();}catch(e){}})();</script>
+<script src="/api/capi_pv.js.php?v=1759115496" defer></script>
+</style>
+<script src="js/fbc-capture.js"></script>
+
+<script src="js/capi-ic-hook.js"></script>
+
+<script src="js/addpay-hook.js"></script>
+
+<script id="disable-purchase-front" src="js/disable-purchase-front.js" defer=""></script>
+
+
+
+
+<!-- App Download Banner -->
+<div id="appDownloadBanner" class="app-download-banner">
+    <div class="banner-container">
+        <div class="banner-content">
+            <div class="banner-icon">
+                <i class="bi bi-download"></i>
+            </div>
+            <div class="banner-text">
+                <span class="banner-title">Ganhe 50% de bônus no segundo depósito!</span>
+            </div>
+            <div class="banner-divider">•</div>
+            <button onclick="openAppModal()" class="download-btn">
+                Baixar
+            </button>
+            <button onclick="dismissBanner()" class="close-banner">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- App Download Modal -->
+<div id="appDownloadModal" class="app-modal">
+    <div class="app-modal-content">
+        <div class="app-modal-header">
+            <div class="app-modal-icon">
+            </div>
+            <h2>Instale Nosso App</h2>
+            <button class="app-modal-close" onclick="closeAppModal()">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        
+        <div class="app-benefits">
+            <div class="benefits-title">
+                <i class="bi bi-gift"></i>
+                <span>Vantagens do App</span>
+            </div>
+            
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Acesso rápido direto da tela inicial</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Notificações de promoções exclusivas</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Experiência mais fluida e rápida</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Funciona mesmo offline</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Design otimizado para mobile</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-platform-buttons">
+            <button class="platform-btn ios-btn active">
+                <i class="bi bi-apple"></i>
+                iOS (iPhone/iPad)
+            </button>
+            <button class="platform-btn android-btn">
+                <i class="bi bi-android2"></i>
+                Android
+            </button>
+        </div>
+        
+        <div class="app-instructions">
+            <div class="instruction-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Abra no Safari</h4>
+                    <p>Este site deve ser aberto no navegador Safari</p>
+                </div>
+            </div>
+            
+            <div class="instruction-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Toque no botão Compartilhar</h4>
+                    <p><i class="bi bi-share"></i> Na barra inferior do Safari</p>
+                </div>
+            </div>
+            
+            <div class="instruction-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Selecione "Adicionar à Tela de Início"</h4>
+                    <p><i class="bi bi-plus-square"></i> Role para baixo se necessário</p>
+                </div>
+            </div>
+            
+            <div class="instruction-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Confirme tocando em "Adicionar"</h4>
+                    <p>O app aparecerá na sua tela inicial</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-modal-footer">
+            <button class="app-understand-btn" onclick="closeAppModal()">
+                Entendi, obrigado!
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* App Download Banner */
+.app-download-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #0308C7;
+    color: white;
+    z-index: 1002;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 10px rgba(3, 8, 199, 0.3);
+    transition: transform 0.3s ease;
+    transform: translateY(0);
+}
+
+.app-download-banner.hidden {
+    transform: translateY(-100%);
+}
+
+.banner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: nowrap;
+}
+
+.banner-icon {
+    font-size: 1.2rem;
+}
+
+.banner-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.banner-divider {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+
+
+.download-btn {
+    background: white;
+    color: #0308C7;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.download-btn:hover {
+    background: #f0f0f0;
+}
+
+.close-banner {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 0.2rem;
+}
+
+.close-banner:hover {
+    color: #ccc;
+}
+
+/* App Download Modal */
+.app-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1003;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.app-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.app-modal-content {
+    background: #2a2a2a;
+    color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.app-modal.active .app-modal-content {
+    transform: translateY(0);
+}
+
+.app-modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.app-modal-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    flex: 1;
+    text-align: center;
+}
+
+.app-modal-icon {
+    background: #0308C7;
+    padding: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    top: -60px;
+    transform: translateX(-50%);
+    border: 4px solid #2a2a2a;
+}
+
+.app-modal-close {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: color 0.2s ease;
+}
+
+.app-modal-close:hover {
+    color: white;
+}
+
+.app-benefits {
+    margin-bottom: 2rem;
+}
+
+.benefits-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.benefits-title i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.benefit-item i {
+    color: #0308C7;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.benefit-item span {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.app-platform-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.platform-btn {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 2px solid #444;
+    background: #444;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.platform-btn:hover {
+    background: #555;
+    border-color: #555;
+}
+
+.platform-btn.active {
+    background: #0308C7;
+    border-color: #0308C7;
+}
+
+.app-instructions {
+    margin-bottom: 2rem;
+}
+
+.instruction-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #444;
+}
+
+.instruction-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.step-number {
+    background: #0308C7;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.step-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.step-content i {
+    color: #0308C7;
+    margin-right: 0.3rem;
+}
+
+.desktop-info {
+    background: #1a237e;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.desktop-icon {
+    color: #0308C7;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.desktop-text strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #0308C7;
+    font-size: 0.9rem;
+}
+
+.desktop-text p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #ccc;
+}
+
+.app-modal-footer {
+    text-align: center;
+}
+
+.app-understand-btn {
+    background: #0308C7;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.app-understand-btn:hover {
+    background: #0206a7;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .banner-container {
+        padding: 0 1rem;
+    }
+    
+    .banner-content {
+        gap: 0.5rem;
+    }
+    
+    .banner-title {
+        font-size: 0.8rem;
+    }
+    
+    .banner-divider {
+        font-size: 0.9rem;
+    }
+    
+    .download-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    
+    .close-banner {
+        font-size: 1rem;
+        padding: 0.1rem;
+    }
+    
+    .app-modal-content {
+        padding: 1.5rem;
+        margin: 1rem;
+        max-height: 95vh;
+    }
+    
+    .app-modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .platform-btn {
+        font-size: 0.8rem;
+        padding: 0.7rem 0.8rem;
+    }
+    
+    .instruction-step {
+        gap: 0.8rem;
+    }
+    
+    .step-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const banner = document.getElementById('appDownloadBanner');
+    const body = document.body;
+    const header = document.querySelector('.header');
+
+    function adjustLayoutForBanner() {
+        if (!banner || banner.classList.contains('hidden')) {
+            body.style.paddingTop = '0';
+            if (header) header.style.top = '0';
+            return;
+        }
+
+        const bannerHeight = banner.offsetHeight;
+        body.style.paddingTop = bannerHeight + 'px';
+        if (header) {
+            header.style.top = bannerHeight + 'px';
+        }
+    }
+
+    window.dismissBanner = function () {
+        if (banner) {
+            banner.classList.add('hidden');
+            adjustLayoutForBanner();
+        }
+    }
+
+    // Ajusta o layout quando a página carrega e em redimensionamento
+    adjustLayoutForBanner();
+    window.addEventListener('resize', adjustLayoutForBanner);
+
+    // Funções do Modal
+    window.openAppModal = function() {
+        const modal = document.getElementById("appDownloadModal");
+        if (modal) {
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+    };
+
+    window.closeAppModal = function() {
+        const modal = document.getElementById("appDownloadModal");
+        if (modal) {
+            modal.classList.remove("active");
+            document.body.style.overflow = "auto";
+        }
+    };
+
+    // Funcionalidade dos botões de plataforma
+    const platformButtons = document.querySelectorAll('.platform-btn');
+    const instructionsContainer = document.querySelector('.app-instructions');
+    
+    const iosInstructions = `
+        <div class="instruction-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Abra no Safari</h4>
+                <p>Este site deve ser aberto no navegador Safari</p>
+            </div>
+        </div>
+        
+        <div class="instruction-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Toque no botão Compartilhar</h4>
+                <p><i class="bi bi-share"></i> Na barra inferior do Safari</p>
+            </div>
+        </div>
+        
+        <div class="instruction-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Selecione "Adicionar à Tela de Início"</h4>
+                <p><i class="bi bi-plus-square"></i> Role para baixo se necessário</p>
+            </div>
+        </div>
+        
+        <div class="instruction-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Confirme tocando em "Adicionar"</h4>
+                <p>O app aparecerá na sua tela inicial</p>
+            </div>
+        </div>
+    `;
+    
+    const androidInstructions = `
+        <div class="instruction-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Abra no Chrome</h4>
+                <p>Recomendamos usar o Google Chrome</p>
+            </div>
+        </div>
+        
+        <div class="instruction-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Toque no menu (3 pontos)</h4>
+                <p><i class="bi bi-three-dots-vertical"></i> No canto superior direito</p>
+            </div>
+        </div>
+        
+        <div class="instruction-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Selecione "Instalar app" ou "Adicionar à tela inicial"</h4>
+                <p><i class="bi bi-plus-square"></i> Pode aparecer automaticamente uma notificação</p>
+            </div>
+        </div>
+        
+        <div class="instruction-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Confirme a instalação</h4>
+                <p>O app será adicionado ao seu dispositivo</p>
+            </div>
+        </div>
+    `;
+    
+    platformButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            platformButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Update instructions based on platform
+            if (this.classList.contains('ios-btn')) {
+                instructionsContainer.innerHTML = iosInstructions;
+            } else if (this.classList.contains('android-btn')) {
+                instructionsContainer.innerHTML = androidInstructions;
+            }
+        });
+    });
+
+    // Fechar modal ao clicar fora dele
+    document.getElementById('appDownloadModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeAppModal();
+        }
+    });
+});
+</script>
+
+    <section class="cadastro-section">
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+
+        <div class="cadastro-container fade-in">
+            <!-- Left Section -->
+            <div class="left-section">
+                <div class="brand-content">
+                    <h1 class="brand-title"> Crie Sua Conta!</h1>
+                    <p class="brand-subtitle">
+                        Junte-se a milhares de usuários que já estão ganhando 
+                        <span class="highlight-text">prêmios incríveis</span> 
+                        com a RaspaPix!
+                    </p>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="bi bi-gift"></i>
+                            </div>
+                            <span>Prêmios de até R$ 412.000</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="bi bi-lightning-charge"></i>
+                            </div>
+                            <span>PIX instantâneo</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <span>Plataforma 100% segura</span>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <span>Disponível 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="cadastro-card">
+                    <div class="cadastro-header">
+                        <div class="cadastro-icon">
+                            <i class="bi bi-person-plus"></i>
+                        </div>
+                        <h2 class="cadastro-title"> Crie Sua Conta!</h2>
+                        <p class="cadastro-subtitle">
+                            Junte-se a milhares de usuários que já estão ganhando prêmios incríveis com a RaspaPix!
+                        </p>
+                    </div>
+
+                    <form id="cadastroForm" method="POST" class="cadastro-form">
+                        <input id="ref" name="ref" type="hidden" value="">
+                        
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <input type="text" name="nome" class="form-input" placeholder="Nome Completo" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="bi bi-telephone"></i>
+                            </div>
+                            <input type="text" id="telefone" name="telefone" class="form-input" placeholder="(11) 99999-9999" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            <input type="email" name="email" class="form-input" placeholder="Email" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="bi bi-lock"></i>
+                            </div>
+                            <input type="password" name="senha" class="form-input" placeholder="Crie uma senha" required="">
+                        </div>
+
+                        <div class="checkbox-group">
+                            <div class="custom-checkbox">
+                                <input id="aceiteTermos" name="aceiteTermos" type="checkbox" checked="" required="">
+                                <div class="checkmark"></div>
+                            </div>
+                            <label for="aceiteTermos" class="checkbox-label">
+                                Li e aceito os <a href="/politica" target="_blank">termos e políticas de privacidade</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="bi bi-arrow-right"></i>
+                            Criar Minha Conta
+                        </button>
+
+                        <p class="small-observation" style="text-align: center; color: #9ca3af; font-size: 0.8rem; margin-top: 1rem;">
+                            ⚡ Ganhos da raspadinha grátis são creditados automaticamente no saldo.
+                        </p>
+                    </form>
+
+                    <div class="form-footer">
+                        <div class="divider">
+                            <span>ou</span>
+                        </div>
+                        
+                        <p class="footer-text">
+                            Já tem uma conta?
+                        </p>
+                        <a href="/login" class="footer-link">
+                            Faça login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">
+                                            <img src="images/68c0c152c7685.webp" alt="RaspaPix" class="footer-logo-image">
+                                    </div>
+                <p class="footer-description">
+                    © 2025 RaspaPix. Todos os direitos reservados.
+                </p>
+                <p class="footer-description">
+                    Raspadinhas e outros jogos de azar são regulamentados e cobertos pela nossa licença de jogos. Jogue com responsabilidade.
+                </p>
+            </div>
+                         
+            <div class="footer-section">
+                <h3>Regulamentos</h3>
+                <ul class="footer-links">
+                    <li><a href="/responsavel/">Jogo responsável</a></li>
+                    <li><a href="/privacidade/">Política de Privacidade</a></li>
+                    <li><a href="/termos/">Termos de Uso</a></li>
+                </ul>
+            </div>
+                         
+            <div class="footer-section">
+                <h3>Ajuda</h3>
+                <ul class="footer-links">
+                    <li><a href="/faq/">Perguntas Frequentes</a></li>
+                    <li><a href="/como-jogar/">Como Jogar</a></li>
+                    <li><a href="/suporte/">Suporte Técnico</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+/* Footer Logo Styles */
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.footer-logo-image {
+    height: 40px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.footer-logo-image:hover {
+    transform: scale(1.02);
+}
+
+.footer-logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #144B8A 0%, #0E2A47 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(20, 75, 138, 0.3);
+    transition: all 0.3s ease;
+}
+
+.footer-logo-icon:hover {
+    box-shadow: 0 6px 16px rgba(20, 75, 138, 0.4);
+    transform: translateY(-1px);
+}
+
+.footer-brand span {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* Footer Base Styles */
+.footer {
+    background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 4rem;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2rem 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #144B8A;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+    color: #144B8A;
+    padding-left: 0.5rem;
+}
+
+.footer-description {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-container {
+        padding: 2rem 1rem 1.5rem;
+    }
+    
+    .footer-brand {
+        gap: 0.5rem;
+    }
+    
+    .footer-logo-image {
+        height: 35px;
+    }
+    
+    .footer-logo-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+        border-radius: 8px;
+    }
+    
+    .footer-brand span {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-brand {
+        gap: 0.4rem;
+    }
+    
+    .footer-logo-image {
+        height: 32px;
+    }
+    
+    .footer-logo-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+    
+    .footer-brand span {
+        font-size: 1rem;
+    }
+    
+    .footer-section h3 {
+        font-size: 1rem;
+    }
+    
+    .footer-links a {
+        font-size: 0.9rem;
+    }
+    
+    .footer-description {
+        font-size: 0.85rem;
+    }
+}
+</style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ref parameter handling
+            function getRefParam() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('ref');
+            }
+
+            const refParam = getRefParam();
+            if (refParam) {
+                localStorage.setItem('ref', refParam);
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            let refValue = params.get('ref');
+
+            if (!refValue) {
+                refValue = localStorage.getItem('ref') || '';
+            } else {
+                localStorage.setItem('ref', refValue);
+            }
+
+            const refInput = document.getElementById('ref');
+            if (refInput) refInput.value = refValue;
+
+            // Phone mask
+            const telefoneInput = document.getElementById('telefone');
+            telefoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+
+                let formatted = '';
+                if (value.length > 0) {
+                    formatted += '(' + value.substring(0, 2);
+                }
+                if (value.length >= 3) {
+                    formatted += ') ' + value.substring(2, 7);
+                }
+                if (value.length >= 8) {
+                    formatted += '-' + value.substring(7);
+                }
+                e.target.value = formatted;
+            });
+
+            // Form submission
+            const cadastroForm = document.getElementById('cadastroForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            cadastroForm.addEventListener('submit', function(e) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="bi bi-arrow-repeat" style="animation: spin 1s linear infinite;"></i> Criando conta...';
+                cadastroForm.classList.add('loading');
+            });
+
+            // Add spin animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Focus enhancements
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateY(0)';
+                });
+            });
+        });
+
+        // Notiflix configuration
+        Notiflix.Notify.init({
+            width: '300px',
+            position: 'right-top',
+            distance: '20px',
+            opacity: 1,
+            borderRadius: '12px',
+            timeout: 4000,
+            success: {
+                background: '#050BFD',
+                textColor: '#fff',
+            },
+            failure: {
+                background: '#ef4444',
+                textColor: '#fff',
+            },
+            warning: {
+                background: '#ffffff',
+                textColor: '#fff',
+            }
+        });
+
+        // Show messages if any
+        
+        console.log('%c🎯 RaspaPix - Cadastro Split Screen', 'color: #050BFD; font-size: 16px; font-weight: bold;');
+    </script>
+
+<script>
+(function(){
+  function findCadastroForm(){
+    var forms = document.querySelectorAll('form');
+    for (var i=0;i<forms.length;i++){ if (forms[i].querySelector('input[type="password"]')) return forms[i]; }
+    return document.querySelector('form');
+  }
+
+  function uniformizeInputs(){
+    var form = findCadastroForm();
+    if (!form) return;
+    var sels = 'input[type="text"], input[type="email"], input[type="password"], input[type="tel"]';
+    form.querySelectorAll(sels).forEach(function(el){
+      if (el.offsetParent === null && el.type !== 'tel') return; // ignora ocultos
+      el.classList.add('rp-input');
+    });
+  }
+
+  function decoratePhone(){
+    var phone = document.querySelector('input[type="tel"], input[name*="tel"], input[name*="fone"], input[name*="phone"], input[id*="phone"], input[id*="tel"], input[name*="telefone"], input[id*="telefone"]');
+    if (!phone || phone.dataset.brDecorated) return;
+    phone.dataset.brDecorated = "1";
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'phone-input-br';
+    phone.parentNode.insertBefore(wrapper, phone);
+    wrapper.appendChild(phone);
+
+    var flag = document.createElement('span');
+    flag.className = 'flag';
+    var img = document.createElement('img');
+    img.alt = 'Brasil';
+    img.src = 'data:image/png;base64,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'; // imagem inline (não quebra caminho)
+    flag.appendChild(img);
+
+    var prefix = document.createElement('span');
+    prefix.className = 'prefix';
+    prefix.textContent = '+55';
+
+    var sep = document.createElement('span');
+    sep.className = 'sep';
+    sep.textContent = '|';
+
+    wrapper.insertBefore(flag, phone);
+    wrapper.insertBefore(prefix, phone);
+    wrapper.insertBefore(sep, phone);
+
+    phone.placeholder = 'Telefone';
+    phone.setAttribute('inputmode', 'numeric');
+    phone.setAttribute('autocomplete', 'tel');
+  }
+
+  function setupValidations(){
+    var form = findCadastroForm();
+    if (!form) return;
+
+    var btn = form.querySelector('button[type="submit"], input[type="submit"], button.submit');
+    if (btn){ if (btn.tagName === 'INPUT') btn.value = 'criar minha conta'; else btn.textContent = 'Criar Minha Conta'; }
+
+    var pwd = form.querySelector('input[type="password"]');
+    if (pwd){ pwd.setAttribute('minlength','6'); pwd.setAttribute('required','required'); }
+
+    form.addEventListener('submit', function(e){
+      var pwd = form.querySelector('input[type="password"]');
+      if (pwd && pwd.value.length < 6){
+        e.preventDefault();
+        alert('A senha deve ter no mínimo 6 caracteres.');
+        pwd.focus();
+        return false;
+      }
+      var phone = form.querySelector('input[type="tel"], input[name*="tel"], input[name*="fone"], input[name*="phone"], input[id*="phone"], input[id*="tel"], input[name*="telefone"], input[id*="telefone"]');
+      if (phone) {
+        var digits = (phone.value || '').replace(/\D/g, '');
+        if (digits && digits.slice(0,2) !== '55') digits = '55' + digits;
+        if (digits) phone.value = '+' + digits;
+      }
+      return true;
+    }, {passive:false});
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    try { decoratePhone(); } catch(e){}
+    try { uniformizeInputs(); } catch(e){}
+    try { setupValidations(); } catch(e){}
+  });
+})();
+</script>
+<script src="js/latest.js" data-utmify-prevent-xcod-sck="" data-utmify-prevent-subids="" async="" defer=""></script>
+
+</body></html>
